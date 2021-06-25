@@ -1,33 +1,25 @@
 const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
-module.exports = (sequelize) => {
-  // defino el modelo
+// Luegofunctifunction* IDS() {
+  function* IDS() {
+    _default = 5
+    while (true) {
+        yield _default += 1
+    }
+  }
+module.exports = function (sequelize) {
+  const IDMkr = IDS(),
+  { INTEGER, STRING } = DataTypes;
   sequelize.define('dog', {
     id: {
       type: INTEGER,
-      defaultValue: () => {
-        return IDMkr.next().value
-      },
+      defaultValue: () => IDMkr.next().value,
       primaryKey: true
     },
     name: {
-      type: STRING,
+      type: STRING(21),
       allowNull: false,
       unique: true,
-      // validate: {
-      //   notNull: {
-      //     msg: "El campo no puede ser nulo"
-      //   },
-      //   isAlpha: {
-      //     args: true,
-      //     msg: "El nombre solo puede contener letras"
-      //   },
-      //   len: {
-      //     args: [2, 25],
-      //     msg: "El nombre tiene que ser entre 3 y 25 caracteres"
-      //   }
-      // },
     },
     height: {
       type: INTEGER,
@@ -42,4 +34,4 @@ module.exports = (sequelize) => {
       allowNull: true,
     }
   });
-};
+}

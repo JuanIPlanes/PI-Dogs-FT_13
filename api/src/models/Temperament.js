@@ -1,4 +1,4 @@
-const { UUID, UUIDV4, DataTypes, ARRAY, JSON } = require('sequelize');
+const DataTypes = require('sequelize').DataTypes;
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 function* IDS() {
@@ -8,19 +8,17 @@ function* IDS() {
     }
 }
 module.exports = (sequelize) => {
-    const IDMkr = IDS()
+    const IDMkr = IDS();
     const { INTEGER, STRING } = DataTypes;
     // defino el modelo
     sequelize.define('temperament', self = {
         id: {
             type: INTEGER,
-            defaultValue: () => {
-                return IDMkr.next().value
-            },
+            defaultValue: () => IDMkr.next().value,
             primaryKey: true
         },
         name: {
-            type: STRING,
+            type: STRING(25),
             allowNull: false,
             unique: true,
         }
